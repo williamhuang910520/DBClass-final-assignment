@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - my-network
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - my-network
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+
+  database:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pw
+      MYSQL_DATABASE: B10917013
+      # MYSQL_USER: your_username
+      # MYSQL_PASSWORD: your_password
+    volumes:
+      - ./database/MovieRentalDB.sql:/docker-entrypoint-initdb.d/MovieRentalDB.sql # 映射data.sql到容器內部初始化目錄
+    networks:
+      - my-network
+    ports:
+      - "3306:3306"
+
+networks:
+  my-network:
+    driver: bridge

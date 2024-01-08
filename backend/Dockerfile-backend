@@ -1,0 +1,28 @@
+# 使用官方的 Python 映像
+FROM python:3.10.7
+
+# 設置工作目錄
+WORKDIR /app
+
+
+# 複製依賴文件到工作目錄
+COPY requirements.txt .
+    
+# 安裝應用程式依賴
+RUN pip install -r requirements.txt
+
+# 複製應用程式代碼到工作目錄
+COPY . .
+
+# 對外暴露應用程式運行的端口
+EXPOSE 5000
+
+# 安裝 dockerize
+RUN apt-get update && apt-get install -y wget \
+    && wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
+    && rm dockerize-linux-amd64-v0.6.1.tar.gz
+
+# 啟動應用程式
+# CMD ["python", "app.py"]
+CMD ["dockerize", "-wait", "tcp://database:3306", "python", "app.py"]
