@@ -2,7 +2,7 @@ import Home from './Home';
 import Discover from './Discover';
 import Subscription from './Subscription';
 import Account from './Account';
-import Manange from './Manange';
+import Manage from './Manage';
 import Copyright from './Copyright';
 
 export {
@@ -10,6 +10,6 @@ export {
   Discover, 
   Subscription, 
   Account, 
-  Manange, 
+  Manage, 
   Copyright, 
 };

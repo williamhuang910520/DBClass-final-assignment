@@ -29,7 +29,9 @@ class CustomersRegisterResource(Resource):
             """, (args['login_name'], password_hash, salt, args['nick_name']))
 
             connection.commit()
-            return {'message': 'Customer registered successfully'}
+            cursor.execute("SELECT * FROM Customers WHERE LoginName = %s", (args['login_name'],))
+            user_data = cursor.fetchone()
+            return {'message': 'Customer registered successfully', 'user data': user_data}
         except Exception as e:
             return {'error': f"Error registering customer: {e}"}, 500
         finally:

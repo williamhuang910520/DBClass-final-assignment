@@ -13,7 +13,7 @@ import { membershipLevel } from '/src/utils/NameChanger'
 
 const Navbar = ({page, setPage}) => {
   
-  const [cookies, setCookie, removeCookie] = useCookies(['CustomerID'])
+  const [cookies, setCookie, removeCookie] = useCookies(['CustomerID', 'ManageMode'])
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const [loginName, setLoginName] = useState("")
   const [loginPassword, setLoginPassword] = useState("")
@@ -40,11 +40,23 @@ const Navbar = ({page, setPage}) => {
       setShowLoginDialog(false)
     })
   }   
+  
+  const handleRegister = () => {
+    customerAPI.registCustomer(loginName, loginPassword).then(userData => {
+      console.log(userData)
+      setCookie('CustomerID', userData['user data']['CustomerID'])
+      setLoginName("")
+      setLoginPassword("")
+      setPage(1)
+      setShowLoginDialog(false)
+    })
+  }   
 
   const [showLogoutDialog, setShowLogoutDialog] = useState(false)
 
   const handleLogout = () => {
     removeCookie('CustomerID')
+    setCookie('ManageMode', false)
     setPage(1)
     setUserData({})
     setShowLogoutDialog(false)
@@ -85,7 +97,8 @@ const Navbar = ({page, setPage}) => {
           icon="material-symbols:database-outline" 
           page={page}
           setPage={setPage}
-          number={5}/>
+          number={5} 
+          show={!cookies.ManageMode}/>
         <Divider />
         <p className="text-h3 mx-6 mb-3 mt-7">其他</p>
         <NavbarItem 
@@ -96,7 +109,7 @@ const Navbar = ({page, setPage}) => {
           number={6}/>
       </div>
       <UserArea name={userData.NickName} level={userData.MembershipLevel} avatar={userData.Avatar} customerID={cookies.CustomerID} onClick={()=>{setShowLoginDialog(true)}} handleLogout={()=>{setShowLogoutDialog(true)}}/>
-      <Dialog title="登入" show={showLoginDialog}>
+      <Dialog title="登入/註冊" show={showLoginDialog}>
         <div className="flex flex-col gap-2 ">
           <p className="text-h4">登入帳號</p>
           <input type="text" value={loginName} onChange={e=>{setLoginName(e.target.value)}} name="loginName" className="input-text"/>
@@ -111,12 +124,18 @@ const Navbar = ({page, setPage}) => {
             onClick={()=>{setShowLoginDialog(false)}}>
               取消
           </button>
-          <button 
-            className="btn-dialog"
-            onClick={()=>{handleLogin()}}>
-              登入
-          </button>
-            
+          <div className="flex gap-4">
+            <button 
+              className="btn-opacity font-bold"
+              onClick={()=>{handleRegister()}}>
+                註冊
+            </button>
+            <button 
+              className="btn-dialog"
+              onClick={()=>{handleLogin()}}>
+                登入
+            </button>
+          </div>
         </div>
       </Dialog>
       <Dialog title="登出" small show={showLogoutDialog}>
@@ -138,10 +157,10 @@ const Navbar = ({page, setPage}) => {
   )
 }
 
-const NavbarItem = ({text, icon, link, number, page, setPage}) => {
+const NavbarItem = ({text, icon, link, number, page, setPage, show}) => {
   return (
     <a 
-      className={`flex h-16 items-center mx-3 pl-2 rounded-xl hover:cursor-pointer ${number===page ? 'bg-zinc-200' : 'hover:bg-zinc-800'}`}
+      className={`flex h-16 items-center mx-3 pl-2 rounded-xl hover:cursor-pointer ${number===page?'bg-zinc-200':'hover:bg-zinc-800'} ${show?'hidden':''}`}
       onClick={()=>{setPage(number)}}
     >
       <div className="flex items-center justify-center w-16 ">

@@ -9,10 +9,10 @@ import Dialog from '../components/Dialog'
 import { movieAPI } from '/src/api/api'
 
 
-const Manange = () => {
+const Manage = () => {
   const [finishFetch, setFinishFetch] = useState(false)
   const [movies, setMovies] = useState([])
-  const [showAddMovieDialog, setShowAddMovieDialog] = useState(false)
+  const [showDialogAddMovie, setShowDialogAddMovie] = useState(false)
   const [movieInfo, setMovieInfo] = useState({
     "title": "New Test Movie",
     "genre": "Action",
@@ -22,6 +22,12 @@ const Manange = () => {
     "cover_url": "https://google.com",
     "discription": "This is a discription."
   })
+
+  
+  const [reRender, setReRender] = useState(false)
+  const reRenderAction = () => {
+    setReRender(!reRender)
+  }
   
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -32,32 +38,32 @@ const Manange = () => {
   };
 
   useEffect(() => {
-    if(!showAddMovieDialog){ 
+    if(!showDialogAddMovie){ 
       movieAPI.getAllMovies().then(moviesData => {
         setMovies(moviesData)
         setFinishFetch(true)
       })
     }
-  }, [showAddMovieDialog])
+  }, [showDialogAddMovie, reRender])
 
   const handleAddMovie = e => {
     movieAPI.addMovie(movieInfo).then(response=>{
       console.log(response)
-      setShowAddMovieDialog(false)
+      setShowDialogAddMovie(false)
     })
   }
   
   return (
     <div className="flex flex-col p-7 box-border h-screen relative">
       <p className="text-h1 h1-m">所有電影</p>
-      <Movies movies={movies}/>
+      <Movies movies={movies} reRender={reRenderAction} manage/>
       <button 
         className="absolute h-16 w-16 bottom-6 right-6 bg-orange-500 rounded-full flex items-center justify-center hover:bg-orange-600"
-        onClick={()=>{setShowAddMovieDialog(true)}}
+        onClick={()=>{setShowDialogAddMovie(true)}}
       >        
         <Icon icon="material-symbols:add-rounded" height="1.75rem" color='#FFFFFF'/>
       </button>
-      <Dialog title="新增電影" show={showAddMovieDialog}>
+      <Dialog title="新增電影" show={showDialogAddMovie}>
         <div className="grid w-[600px] grid-cols-2 gap-y-6 gap-x-8">
           <div className="flex flex-col gap-2 ">
             <p className="text-h4">名稱</p>
@@ -92,7 +98,7 @@ const Manange = () => {
         <div className="flex justify-between text-white mt-2">
           <button 
             className="btn-opacity"
-            onClick={()=>{setShowAddMovieDialog(false)}}>
+            onClick={()=>{setShowDialogAddMovie(false)}}>
               取消
           </button>
           <button 
@@ -107,4 +113,4 @@ const Manange = () => {
   )
 }
 
-export default Manange
+export default Manage

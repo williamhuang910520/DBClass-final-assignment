@@ -32,11 +32,20 @@ const Subscription = () => {
 
   return (
     <div className="p-7 box-border">
-      <p className="text-h1 h1-m">租借中</p>
-      <Movies movies={rentalMovies} reRender={reRenderAction}/>
-      <Divider />
-      <p className="text-h1 h1-m">租借歷史</p>
-      <Movies movies={rentalHistory} reRender={reRenderAction}/>
+      {cookies.CustomerID ? 
+        <div>
+          <p className="text-h1 h1-m">租借中</p>
+          <Movies movies={rentalMovies} reRender={reRenderAction}/>
+          <Divider />
+          <p className="text-h1 h1-m">租借歷史</p>
+          <Movies movies={rentalHistory} reRender={reRenderAction}/>
+        </div>
+        :
+        <div className="w-full h-screen -my-7 flex flex-col justify-center items-center gap-4">
+          <p className="text-h1">尚未登入</p>
+          <p className="text-h3">請登入或註冊帳號</p>
+        </div>
+      }
     </div>
   )
 }

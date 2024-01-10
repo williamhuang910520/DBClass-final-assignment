@@ -58,9 +58,9 @@ class RentalsResource(Resource):
             cursor.execute("""
                 SELECT MovieID, RentalDate, RentalStatus 
                 FROM Rentals 
-                WHERE RentalStatus='Borrowing'
-            """)
-            rentaled_data = cursor.fetchone()
+                WHERE CustomerID=%s AND MovieID=%s AND RentalStatus='Borrowing'
+            """, (args['customer_id'], args['movie_id']))
+            rentaled_data = cursor.fetchall()
             if rentaled_data:
                 connection.commit()
                 return {'error': f"Error rentaling movies: Borrowing"}, 409
