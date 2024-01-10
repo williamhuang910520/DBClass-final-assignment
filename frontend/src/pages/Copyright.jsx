@@ -61,7 +61,7 @@ const Copyright = () => {
 
 const ToolsLogo = ({icon, link}) => {
   return (
-    <a href={link}>
+    <a href={link} target="_blank">
       <div className="p-6 cursor-pointer outline outline-1 outline-zinc-500 rounded-xl">
         <Icon icon={icon} height="1.75rem"/>
       </div>
