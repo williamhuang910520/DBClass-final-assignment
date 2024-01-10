@@ -33,11 +33,11 @@ CREATE TABLE IF NOT EXISTS `Customers` (
   UNIQUE KEY `UNIQUE KEY` (`LoginName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 正在傾印表格  MovieRentalDB.Customers 的資料：~4 rows (近似值)
+-- 正在傾印表格  MovieRentalDB.Customers 的資料：~3 rows (近似值)
 INSERT IGNORE INTO `Customers` (`CustomerID`, `LoginName`, `PasswordHash`, `PasswordSalt`, `NickName`, `MembershipLevel`, `About`, `Avatar`) VALUES
-	('0014f871-af10-11ee-a4cd-0242ac120002', 'B10917013', '$2b$12$ZoIxGeb3Cc21cQgAz211wu6MpOg6gwGdmdNHfVIPoO0fp76JR0Z2u', '$2b$12$ZoIxGeb3Cc21cQgAz211wu', 'B10917013', 'copper', '哈哈可憐學生', NULL),
 	('0699df65-a1e9-11ee-a139-0242ac140002', 'tooruche520', '$2b$12$pVbAu6U9MLsvILOh970tPORGoeUdLR.cxEPlNEGGlikt7McMAkDgS', '$2b$12$pVbAu6U9MLsvILOh970tPO', 'Tooruche0520', 'diamond', 'This is my account. HIHI u', 'https://pbs.twimg.com/profile_images/1738905616108908544/2t1Z1AAm_400x400.jpg'),
-	('63587741-a260-11ee-8d92-0242ac140002', 'hanchi_photato', '$2b$12$fYxsbGOi4yCjPIN0OlecOeb1n04Hx5mfFDtwaS/cOhLUfBw56LCOq', '$2b$12$fYxsbGOi4yCjPIN0OlecOe', 'Hanchi', 'copper', '我是憨吉，我是一顆番薯', 'https://yt3.googleusercontent.com/M8n9pCuCYMbWFENasXrUdD8TbtXVfyyyGowvrHF4982kDFq1MYepg3BokwfMjzyePDe1_amu=s176-c-k-c0x00ffffff-no-rj');
+	('63587741-a260-11ee-8d92-0242ac140002', 'hanchi_photato', '$2b$12$fYxsbGOi4yCjPIN0OlecOeb1n04Hx5mfFDtwaS/cOhLUfBw56LCOq', '$2b$12$fYxsbGOi4yCjPIN0OlecOe', 'Hanchi', 'copper', '我是憨吉，我是一顆番薯', 'https://yt3.googleusercontent.com/M8n9pCuCYMbWFENasXrUdD8TbtXVfyyyGowvrHF4982kDFq1MYepg3BokwfMjzyePDe1_amu=s176-c-k-c0x00ffffff-no-rj'),
+	('90d06a97-af1c-11ee-a4cd-0242ac120002', 'B10917013', '$2b$12$3dtXx04AJaHM3hteHrCDN.YQQqdL.ujoPtWjEmyBOxT7kWcNCPKEu', '$2b$12$3dtXx04AJaHM3hteHrCDN.', 'B10917013', 'copper', '哈哈可憐學生', NULL);
 
 -- 傾印  資料表 MovieRentalDB.Movies 結構
 CREATE TABLE IF NOT EXISTS `Movies` (
