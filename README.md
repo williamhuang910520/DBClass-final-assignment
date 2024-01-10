@@ -43,10 +43,10 @@
 將本專案 clone 至目的地資料夾，請確保你的電腦已安裝 `git`
 ```sh
 git clone https://github.com/williamhuang910520/DBClass-final-assignment.git
-cd DBClass-final-assignment
 ```
 
 ### 執行 Docker Compose
 ```sh
+cd DBClass-final-assignment
 docker-compose up 
 ```
