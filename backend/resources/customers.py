@@ -1,5 +1,6 @@
 from flask import jsonify, request
 from flask_restful import Resource, reqparse
+from mysql.connector.errors import IntegrityError
 from model.db import get_db_connection
 import bcrypt
 
@@ -32,6 +33,8 @@ class CustomersRegisterResource(Resource):
             cursor.execute("SELECT * FROM Customers WHERE LoginName = %s", (args['login_name'],))
             user_data = cursor.fetchone()
             return {'message': 'Customer registered successfully', 'user data': user_data}
+        except IntegrityError as e:
+            return {'error': f"Error registering customer: {e}"}, 400
         except Exception as e:
             return {'error': f"Error registering customer: {e}"}, 500
         finally:

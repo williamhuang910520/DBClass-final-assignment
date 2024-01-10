@@ -49,9 +49,15 @@ const MovieItem = ({movieID, title, actor, price, releaseDate, discription, genr
     setShowDialogMovieInfo(false)
   }
   const handleAddRental = e => {
-    rentalAPI.addRental(cookies.CustomerID, movieID, dayjs().format('YYYY-MM-DD'), dayjs().add(7, 'day').format('YYYY-MM-DD'), "Borrowing").then((response) => {
+    rentalAPI.addRental(cookies.CustomerID, movieID, dayjs().format('YYYY-MM-DD'), dayjs().add(7, 'day').format('YYYY-MM-DD'), "Borrowing")
+    .then((response) => {
       console.log(response)
       setShowDialogMovieInfo(false)
+    })
+    .catch(error => {
+      if(error.response.status == 409){
+        alert("無法重複借閱")
+      }
     })
   }
 
@@ -251,7 +257,7 @@ const MovieItem = ({movieID, title, actor, price, releaseDate, discription, genr
             <div className="flex justify-end gap-4 text-white mt-2">
               <button 
                 className="btn-opacity"
-                onClick={()=>{setShowDialogCancelRental(false)}}>
+                onClick={()=>{setShowDialogDeleteMovie(false)}}>
                   取消
               </button>
               <button 

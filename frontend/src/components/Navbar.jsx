@@ -30,25 +30,36 @@ const Navbar = ({page, setPage}) => {
   }, [cookies])
 
   const handleLogin = () => {
-    customerAPI.loginCustomer(loginName, loginPassword).then(userData => {
+    customerAPI.loginCustomer(loginName, loginPassword)
+    .then(userData => {
       console.log(userData)
-      // console.log(userData['user data']['CustomerID'])
       setCookie('CustomerID', userData['user data']['CustomerID'])
       setLoginName("")
       setLoginPassword("")
       setPage(1)
       setShowLoginDialog(false)
     })
+    .catch(error => {
+      if(error.response.status == 401){
+        alert("密碼錯誤，請確認密碼後重新輸入")
+      }
+    })
   }   
   
   const handleRegister = () => {
-    customerAPI.registCustomer(loginName, loginPassword).then(userData => {
+    customerAPI.registCustomer(loginName, loginPassword)
+    .then(userData => {
       console.log(userData)
       setCookie('CustomerID', userData['user data']['CustomerID'])
       setLoginName("")
       setLoginPassword("")
       setPage(1)
       setShowLoginDialog(false)
+    })
+    .catch(error => {
+      if(error.response.status == 400){
+        alert("此帳戶名稱不可用，請重新選擇你的帳戶名稱")
+      }
     })
   }   
 
