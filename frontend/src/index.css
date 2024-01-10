@@ -18,6 +18,9 @@
   .text-h4{
     @apply text-white text-lg font-bold
   }
+  .text-p{
+    @apply text-white mt-4 leading-7
+  }
   
   .glass{
     @apply z-50 bg-zinc-700  bg-opacity-40 backdrop-blur-2xl 

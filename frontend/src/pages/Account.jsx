@@ -69,13 +69,13 @@ const Account = () => {
       {cookies.CustomerID ? 
         <div className="w-full max-w-[60rem] mx-20 h-screen">
           <div className="mt-24"></div>
-          <div className="flex mb-12">
+          <div className="flex gap-16 mb-12">
             <div className="w-36 h-36">
               <div className="h-full bg-white rounded-full overflow-hidden">
                 <img src={userData.Avatar} alt="" />
               </div>
             </div>
-            <div className="flex flex-col justify-center ml-10 gap-5 flex-grow">
+            <div className="flex flex-col justify-center gap-5 flex-grow">
               <p className="text-h1 text-4xl">{userData.NickName}</p>
               <p className="text-white text-lg">{userData.About}</p>
             </div>
